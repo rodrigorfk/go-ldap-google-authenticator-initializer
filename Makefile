@@ -8,7 +8,9 @@ all: watch
 
 build:
 	@echo "Building $(GOFILES) to ./bin"
-	@GOPATH=$(GOPATH) GOBIN=$(GOBIN) go build -o bin/$(GONAME) $(GOFILES)
+	@GOPATH=$(GOPATH) GOBIN=$(GOBIN) GOOS=darwin GOARCH=amd64 go build -o bin/$(GONAME)-darwin-amd64 $(GOFILES)
+	@GOPATH=$(GOPATH) GOBIN=$(GOBIN) GOOS=linux GOARCH=amd64 go build -o bin/$(GONAME)-linux-amd64 $(GOFILES)
+	@GOPATH=$(GOPATH) GOBIN=$(GOBIN) GOOS=windows GOARCH=amd64 go build -o bin/$(GONAME)-windows-amd64.exe $(GOFILES)
 
 get:
 	@GOPATH=$(GOPATH) GOBIN=$(GOBIN) go get .
