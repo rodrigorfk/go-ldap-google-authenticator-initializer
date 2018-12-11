@@ -77,8 +77,8 @@ func main() {
 			googleAuthenticatorSecretKey := entry.GetAttributeValue(os.Getenv("GOOGLE_AUTHORIZATION_ATTRIBUTE"))
 			if googleAuthenticatorSecretKey != "" {
 				filename := fmt.Sprintf("%s/%s/.google_authenticator", os.Getenv("USER_BASE_FOLDER"), username)
-				content := []byte(fmt.Sprintf(os.Getenv("GOOGLE_AUTHORIZATION_FILE_TEMPLATE"), googleAuthenticatorSecretKey))
-				err := ioutil.WriteFile(filename, content, 0400)
+				content := strings.Replace(fmt.Sprintf(os.Getenv("GOOGLE_AUTHORIZATION_FILE_TEMPLATE"), googleAuthenticatorSecretKey), "\\n", "\n", -1)
+				err := ioutil.WriteFile(filename, []byte(content), 0400)
 				if err != nil {
 					log.Fatal("Error writing file: ", err)
 				}
